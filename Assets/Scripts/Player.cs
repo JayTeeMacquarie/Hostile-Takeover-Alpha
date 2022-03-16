@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         host = false;
-        player = transform.Find("Sprite").GetComponent<SpriteRenderer>();
+        player = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -27,11 +27,13 @@ public class Player : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
+        GameObject other = collider.gameObject;
         if(Input.GetAxis(InputAxis.GunHorizontal) > 0){
             if(!host){
-                GameObject enemy = collider.gameObject;
-                player.Sprite = enemy.Find("Sprite").GetComponent<SpriteRenderer>().Sprite;
-
+                SpriteRenderer enemy = other.transform.GetComponent<SpriteRenderer>();
+                player.sprite = enemy.sprite;
+                Debug.Log("infected >:)");
+                Destroy(other);
             }
         }
     }
