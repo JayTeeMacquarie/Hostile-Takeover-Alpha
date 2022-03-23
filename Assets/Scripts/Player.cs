@@ -27,9 +27,7 @@ public class Player : MonoBehaviour
         transform.Translate(new Vector3(horizontal, vertical, 0));
 
         if(host != null && Input.GetAxis("Fire2") > 0){
-            Debug.Log("evicted :(");
-            player.enabled = true;
-            Destroy(host);
+            killHost();
         }
     }
 
@@ -43,12 +41,22 @@ public class Player : MonoBehaviour
                 Debug.Log("infected >:)");
                 host = other;
                 player.enabled = false;
+                enemy.infect();
             }
             if(Input.GetAxis("Fire3") > 0 && attacked < Time.time){
                 enemy.health = enemy.health - attack;
                 Debug.Log("attacked, health is:" + enemy.health);
                 attacked = Time.time + attackSpeed;
             }
+        }
+    }
+
+    public void killHost()
+    {
+        if(host != null){
+            Debug.Log("evicted :(");
+            player.enabled = true;
+            Destroy(host);
         }
     }
 }
