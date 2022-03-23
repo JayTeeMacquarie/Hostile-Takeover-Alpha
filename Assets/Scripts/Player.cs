@@ -5,16 +5,18 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float horizontal, vertical;
-    public float speed;
+    public float speed, attackSpeed;
+    public int attack;
     private bool isHost;
+    private float attacked;
     private GameObject host;
     private SpriteRenderer player;
 
     // Start is called before the first frame update
     void Start()
     {
-        isHost = false;
         player = GetComponent<SpriteRenderer>();
+        attacked = Time.time;
     }
 
     // Update is called once per frame
@@ -24,7 +26,7 @@ public class Player : MonoBehaviour
         vertical = Input.GetAxis(InputAxis.Vertical) * speed * Time.deltaTime;
         transform.Translate(new Vector3(horizontal, vertical, 0));
 
-        if(isHost && Input.GetAxis(InputAxis.GunVertical) > 0){
+        if(host != null && Input.GetAxis("Fire2") > 0){
             Debug.Log("evicted :(");
             player.enabled = true;
             Destroy(host);
@@ -34,12 +36,19 @@ public class Player : MonoBehaviour
     void OnTriggerStay2D(Collider2D collider)
     {
         GameObject other = collider.gameObject;
-        if(Input.GetAxis(InputAxis.GunHorizontal) > 0 && !isHost){
-            other.transform.parent = gameObject.transform;
-            Debug.Log("infected >:)");
-            host = other;
-            isHost = true;
-            player.enabled = false;
+        if(other.CompareTag("Enemy")){
+            Enemy enemy = other.GetComponent<Enemy>();
+            if(Input.GetAxis("Fire1") > 0 && host == null && enemy.health <= 60){
+                other.transform.parent = gameObject.transform;
+                Debug.Log("infected >:)");
+                host = other;
+                player.enabled = false;
+            }
+            if(Input.GetAxis("Fire3") > 0 && attacked < Time.time){
+                enemy.health = enemy.health - attack;
+                Debug.Log("attacked, health is:" + enemy.health);
+                attacked = Time.time + attackSpeed;
+            }
         }
     }
 }
