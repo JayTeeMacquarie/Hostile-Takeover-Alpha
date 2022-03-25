@@ -3,8 +3,11 @@ Hostile Takeover is a dark 2D side scrolling platformer where you play as a para
 
 ## Meet Our Team
 Zach: Creative Director, Lead Programmer
+
 Jarrod: Producer, Programmer, Lead UI and UX design.
+
 Stijn: Lead Art, Lead visual design, Programmer
+
 Sevak: Lead Level Design, Programmer
 
 ## Software
