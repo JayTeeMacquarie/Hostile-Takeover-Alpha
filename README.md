@@ -11,4 +11,4 @@ Hostile Takeover is a dark 2D side scrolling platformer where you play as a para
 **Sevak:** *Lead Level Design, Programmer*
 
 ## Software
-[Unity 2020.3.12f1 LTS](https://unity3d.com/unity/whats-new/2020.3.12)
+[Unity 2021.2.9f1 LTS]
