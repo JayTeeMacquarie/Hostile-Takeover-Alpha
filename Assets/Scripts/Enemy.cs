@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private bool infected;
     private float deathTimer, deathRate;
     private Player player;
+    public Bullet bullet;
 
     void Start()
     {
@@ -28,6 +29,9 @@ public class Enemy : MonoBehaviour
         if(infected && deathTimer < Time.time){
             health--;
             deathTimer = Time.time + deathRate;
+        }
+        if(infected && Input.GetAxis("Fire3") > 0){
+            //bullet = Instantiate(bullet);
         }
     }
 
