@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float horizontal, vertical;
-    public float speed, attackSpeed;
+    private float horizontal, vertical, fireTimer;
+    public float speed, attackSpeed, fireRate;
     public int attack;
-    private bool isHost, jumping;
+    private bool jumping, faceLeft;
     private float attacked;
     private GameObject host;
     private SpriteRenderer playerAppearence;
     private Rigidbody2D player;
+    public Bullet prefab;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
         attacked = Time.time;
         speed = 3;
         jumping = false;
+        fireTimer = Time.time;
+        faceLeft = false;
     }
 
     // Update is called once per frame
@@ -29,17 +32,35 @@ public class Player : MonoBehaviour
         horizontal = Input.GetAxis(InputAxis.Horizontal) * speed * Time.deltaTime;
         transform.Translate(new Vector3(horizontal, 0, 0));
 
+        if(faceLeft && horizontal > 0){
+            faceLeft = false;
+        }
+        if(!faceLeft && horizontal < 0){
+            faceLeft = true;
+        }
+
         if(host != null && Input.GetAxis("Fire2") > 0){
             killHost();
         }
 
-        if(Input.GetKey(KeyCode.Space) && !jumping && isHost){
+        if(Input.GetKey(KeyCode.Space) && !jumping && host != null){
             Debug.Log("jump");
             Vector2 jump = new Vector2(0, 5);
             player.AddForce(jump, ForceMode2D.Impulse);
             jumping = true;
         }
-        
+
+        if(host != null){
+            if(fireTimer < Time.time && Input.GetAxis("Fire3") > 0){
+                fireTimer = Time.time + fireRate;
+                Bullet bullet = Instantiate(prefab);
+                bullet.name = "Bullet";
+                bullet.transform.position = host.transform.position;
+                if(faceLeft){
+                    bullet.speed = bullet.speed*-1;
+                }
+            }
+        }
     }
 
     void OnTriggerStay2D(Collider2D collider)
@@ -53,7 +74,6 @@ public class Player : MonoBehaviour
                 host = other;
                 playerAppearence.enabled = false;
                 enemy.infect();
-                isHost = true;
             }
             if(Input.GetAxis("Fire3") > 0 && attacked < Time.time){
                 enemy.health = enemy.health - attack;
@@ -74,5 +94,10 @@ public class Player : MonoBehaviour
             playerAppearence.enabled = true;
             Destroy(host);
         }
+    }
+
+    public GameObject getHost()
+    {
+        return host;
     }
 }
