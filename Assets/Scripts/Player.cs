@@ -4,30 +4,62 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float horizontal, vertical;
-    public float speed, attackSpeed;
+    private float horizontal, vertical, fireTimer;
+    public float speed, attackSpeed, fireRate;
     public int attack;
-    private bool isHost;
+    private bool jumping, faceLeft;
     private float attacked;
     private GameObject host;
-    private SpriteRenderer player;
+    private SpriteRenderer playerAppearence;
+    private Rigidbody2D player;
+    public Bullet prefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GetComponent<SpriteRenderer>();
+        playerAppearence = GetComponent<SpriteRenderer>();
+        player = GetComponent<Rigidbody2D>();
         attacked = Time.time;
+        speed = 3;
+        jumping = false;
+        fireTimer = Time.time;
+        faceLeft = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         horizontal = Input.GetAxis(InputAxis.Horizontal) * speed * Time.deltaTime;
-        vertical = Input.GetAxis(InputAxis.Vertical) * speed * Time.deltaTime;
-        transform.Translate(new Vector3(horizontal, vertical, 0));
+        transform.Translate(new Vector3(horizontal, 0, 0));
+
+        if(faceLeft && horizontal > 0){
+            faceLeft = false;
+        }
+        if(!faceLeft && horizontal < 0){
+            faceLeft = true;
+        }
 
         if(host != null && Input.GetAxis("Fire2") > 0){
             killHost();
+        }
+
+        if(Input.GetKey(KeyCode.Space) && !jumping && host != null){
+            Debug.Log("jump");
+            Vector2 jump = new Vector2(0, 5);
+            player.AddForce(jump, ForceMode2D.Impulse);
+            jumping = true;
+        }
+
+        if(host != null){
+            if(fireTimer < Time.time && Input.GetAxis("Fire3") > 0){
+                fireTimer = Time.time + fireRate;
+                Bullet bullet = Instantiate(prefab);
+                bullet.name = "Bullet";
+                bullet.transform.position = host.transform.position;
+                if(faceLeft){
+                    bullet.speed = bullet.speed*-1;
+                }
+            }
         }
     }
 
@@ -40,7 +72,7 @@ public class Player : MonoBehaviour
                 other.transform.parent = gameObject.transform;
                 Debug.Log("infected >:)");
                 host = other;
-                player.enabled = false;
+                playerAppearence.enabled = false;
                 enemy.infect();
             }
             if(Input.GetAxis("Fire3") > 0 && attacked < Time.time){
@@ -49,14 +81,23 @@ public class Player : MonoBehaviour
                 attacked = Time.time + attackSpeed;
             }
         }
+
+        if(other.CompareTag("Ground")){
+            jumping = false;
+        }
     }
 
     public void killHost()
     {
         if(host != null){
             Debug.Log("evicted :(");
-            player.enabled = true;
+            playerAppearence.enabled = true;
             Destroy(host);
         }
+    }
+
+    public GameObject getHost()
+    {
+        return host;
     }
 }

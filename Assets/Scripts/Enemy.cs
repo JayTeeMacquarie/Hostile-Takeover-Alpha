@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private bool infected;
     private float deathTimer, deathRate;
     private Player player;
+    public Bullet bullet;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
         if(health <= 0){
             if(infected){
                 player.killHost();
+                player.speed = 3;
             }
             Destroy(gameObject);
         }
@@ -29,10 +31,14 @@ public class Enemy : MonoBehaviour
             health--;
             deathTimer = Time.time + deathRate;
         }
+        if(infected && Input.GetAxis("Fire3") > 0){
+            //bullet = Instantiate(bullet);
+        }
     }
 
     public void infect()
     {
         infected = true;
+        player.speed = 5;
     }
 }
