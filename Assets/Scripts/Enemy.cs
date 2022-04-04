@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
         if(health <= 0){
             if(infected){
                 player.killHost();
+                player.speed = 3;
             }
             Destroy(gameObject);
         }
@@ -38,5 +39,6 @@ public class Enemy : MonoBehaviour
     public void infect()
     {
         infected = true;
+        player.speed = 5;
     }
 }

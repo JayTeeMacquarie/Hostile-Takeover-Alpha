@@ -7,28 +7,39 @@ public class Player : MonoBehaviour
     private float horizontal, vertical;
     public float speed, attackSpeed;
     public int attack;
-    private bool isHost;
+    private bool isHost, jumping;
     private float attacked;
     private GameObject host;
-    private SpriteRenderer player;
+    private SpriteRenderer playerAppearence;
+    private Rigidbody2D player;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GetComponent<SpriteRenderer>();
+        playerAppearence = GetComponent<SpriteRenderer>();
+        player = GetComponent<Rigidbody2D>();
         attacked = Time.time;
+        speed = 3;
+        jumping = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         horizontal = Input.GetAxis(InputAxis.Horizontal) * speed * Time.deltaTime;
-        vertical = Input.GetAxis(InputAxis.Vertical) * speed * Time.deltaTime;
-        transform.Translate(new Vector3(horizontal, vertical, 0));
+        transform.Translate(new Vector3(horizontal, 0, 0));
 
         if(host != null && Input.GetAxis("Fire2") > 0){
             killHost();
         }
+
+        if(Input.GetKey(KeyCode.Space) && !jumping && isHost){
+            Debug.Log("jump");
+            Vector2 jump = new Vector2(0, 5);
+            player.AddForce(jump, ForceMode2D.Impulse);
+            jumping = true;
+        }
+        
     }
 
     void OnTriggerStay2D(Collider2D collider)
@@ -40,8 +51,9 @@ public class Player : MonoBehaviour
                 other.transform.parent = gameObject.transform;
                 Debug.Log("infected >:)");
                 host = other;
-                player.enabled = false;
+                playerAppearence.enabled = false;
                 enemy.infect();
+                isHost = true;
             }
             if(Input.GetAxis("Fire3") > 0 && attacked < Time.time){
                 enemy.health = enemy.health - attack;
@@ -49,13 +61,17 @@ public class Player : MonoBehaviour
                 attacked = Time.time + attackSpeed;
             }
         }
+
+        if(other.CompareTag("Ground")){
+            jumping = false;
+        }
     }
 
     public void killHost()
     {
         if(host != null){
             Debug.Log("evicted :(");
-            player.enabled = true;
+            playerAppearence.enabled = true;
             Destroy(host);
         }
     }
