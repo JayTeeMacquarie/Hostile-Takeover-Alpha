@@ -5,8 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float horizontal, vertical, fireTimer;
-    public float speed, attackSpeed, fireRate;
-    public int attack;
+    public float speed, attackSpeed, fireRate, jump, hostJump;
+    public int attack, health;
+    public int maxHealth;
     private bool jumping, faceLeft;
     private float attacked;
     private GameObject host;
@@ -43,10 +44,14 @@ public class Player : MonoBehaviour
             killHost();
         }
 
-        if(Input.GetKey(KeyCode.Space) && !jumping && host != null){
+        if(Input.GetKey(KeyCode.Space) && !jumping){
             Debug.Log("jump");
-            Vector2 jump = new Vector2(0, 5);
-            player.AddForce(jump, ForceMode2D.Impulse);
+            if(host != null){
+                player.AddForce(new Vector2(0, hostJump), ForceMode2D.Impulse);
+            }
+            else{
+                player.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+            }
             jumping = true;
         }
 
@@ -55,11 +60,22 @@ public class Player : MonoBehaviour
                 fireTimer = Time.time + fireRate;
                 Bullet bullet = Instantiate(prefab);
                 bullet.name = "Bullet";
+                bullet.friendly = true;
                 bullet.transform.position = host.transform.position;
+                bullet.shooter = host;
                 if(faceLeft){
                     bullet.speed = bullet.speed*-1;
                 }
             }
+        }
+
+        if(health <= 0){
+            playerAppearence.enabled = false;
+            Debug.Log("u died");
+        }
+
+        if(health > maxHealth){
+            health = maxHealth;
         }
     }
 
@@ -96,6 +112,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    //In future set up so that infectable is an interface/abstract class
+    //so this method returns the something of that type and can access
+    //stuff like health
     public GameObject getHost()
     {
         return host;

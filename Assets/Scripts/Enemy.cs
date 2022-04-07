@@ -6,15 +6,17 @@ public class Enemy : MonoBehaviour
 {
     public int health;
     private bool infected;
-    private float deathTimer, deathRate;
+    private float deathTimer, deathRate, fireTimer;
+    public float fireRate;
     private Player player;
-    public Bullet bullet;
+    public Bullet prefab;
 
     void Start()
     {
         player = FindObjectOfType<Player>();
         deathTimer = Time.time;
         deathRate = 0.2f;
+        fireTimer = Time.time;
     }
 
     // Update is called once per frame
@@ -29,10 +31,23 @@ public class Enemy : MonoBehaviour
         }
         if(infected && deathTimer < Time.time){
             health--;
+            player.health++;
             deathTimer = Time.time + deathRate;
         }
-        if(infected && Input.GetAxis("Fire3") > 0){
-            //bullet = Instantiate(bullet);
+        if(Vector3.Distance(transform.position, player.transform.position) < 5 && !infected){
+            float yDistance = transform.position.y - player.transform.position.y;
+            yDistance = (yDistance*yDistance)/yDistance;
+            if(yDistance < 0.25 && fireTimer < Time.time){
+                fireTimer = Time.time + fireRate;
+                Bullet bullet = Instantiate(prefab);
+                bullet.name = "Bullet";
+                bullet.friendly = false;
+                bullet.transform.position = transform.position;
+                bullet.shooter = gameObject;
+                if(transform.position.x - player.transform.position.x > 0){
+                    bullet.speed = bullet.speed*-1;
+                }
+            }
         }
     }
 
