@@ -37,20 +37,20 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if(finished == false)
-        {
-            totalTime = Time.time - startTime;
-            string minutes = ((int) totalTime / 60).ToString();
-            string seconds = (totalTime % 60).ToString("f2");
+        // if(finished == false)
+        // {
+        //     totalTime = Time.time - startTime;
+        //     string minutes = ((int) totalTime / 60).ToString();
+        //     string seconds = (totalTime % 60).ToString("f2");
 
-            timerText.text = minutes + ":" + seconds;
-        }
-        healthtext.text = playerhp.hp.ToString("f0");
-        if (playerhp.hp <= 0)
-        {
-            healthtext.text = "0";
-            finished = true;
-        }
+        //     //timerText.text = minutes + ":" + seconds;
+        // }
+        // healthtext.text = playerhp.hp.ToString("f0");
+        // if (playerhp.hp <= 0)
+        // {
+        //     healthtext.text = "0";
+        //     finished = true;
+        // }
     }
 
         void Awake() 
