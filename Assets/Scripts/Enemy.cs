@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public int health;
     private bool infected;
+    public bool canShoot;
     private float deathTimer, deathRate, fireTimer;
     public float fireRate;
     private Player player;
@@ -34,14 +35,14 @@ public class Enemy : MonoBehaviour
             player.health++;
             deathTimer = Time.time + deathRate;
         }
-        if(Vector3.Distance(transform.position, player.transform.position) < 5 && !infected){
+        if(Vector3.Distance(transform.position, player.transform.position) < 5 && !infected && canShoot){
             float yDistance = transform.position.y - player.transform.position.y;
             yDistance = (yDistance*yDistance)/yDistance;
             if(yDistance < 0.25 && fireTimer < Time.time){
                 fireTimer = Time.time + fireRate;
                 Bullet bullet = Instantiate(prefab);
                 bullet.name = "Bullet";
-                bullet.friendly = false;
+                bullet.eFriendly = true;
                 bullet.transform.position = transform.position;
                 bullet.shooter = gameObject;
                 if(transform.position.x - player.transform.position.x > 0){

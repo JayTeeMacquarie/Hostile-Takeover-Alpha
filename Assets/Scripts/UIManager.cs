@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     private PlayerHealth playerhp;
     private float startTime;
     public float totalTime;
-    private bool finished = false;
+    //private bool finished = false;
     private GameManager GameManagerScript;
     void Start()
     {

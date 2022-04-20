@@ -85,6 +85,7 @@ public class Player : MonoBehaviour
         if(other.CompareTag("Enemy")){
             Enemy enemy = other.GetComponent<Enemy>();
             if(Input.GetAxis("Fire1") > 0 && host == null && enemy.health <= 60){
+                transform.position = enemy.transform.position;
                 other.transform.parent = gameObject.transform;
                 Debug.Log("infected >:)");
                 host = other;
