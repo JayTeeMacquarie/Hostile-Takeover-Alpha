@@ -358,6 +358,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2278078668655656600, guid: 13735af2339774a34a125505cd803341, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2278078668655656600, guid: 13735af2339774a34a125505cd803341, type: 3}
+      propertyPath: respawnTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7548838186213464607, guid: 13735af2339774a34a125505cd803341, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -1932,6 +1940,14 @@ PrefabInstance:
       propertyPath: fireRate
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 2278078668655656600, guid: 13735af2339774a34a125505cd803341, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2278078668655656600, guid: 13735af2339774a34a125505cd803341, type: 3}
+      propertyPath: respawnTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7548838186213464607, guid: 13735af2339774a34a125505cd803341, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -1952,6 +1968,14 @@ PrefabInstance:
     - target: {fileID: 1101175539848510711, guid: 1cf46e301a3ed414986a190fb361c1a6, type: 3}
       propertyPath: health
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101175539848510711, guid: 1cf46e301a3ed414986a190fb361c1a6, type: 3}
+      propertyPath: maxHealth
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101175539848510711, guid: 1cf46e301a3ed414986a190fb361c1a6, type: 3}
+      propertyPath: respawnTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1396659637919738302, guid: 1cf46e301a3ed414986a190fb361c1a6, type: 3}
       propertyPath: m_Name

@@ -42,7 +42,6 @@ public class Enemy : MonoBehaviour
                 fireTimer = Time.time + fireRate;
                 Bullet bullet = Instantiate(prefab);
                 bullet.name = "Bullet";
-                bullet.eFriendly = true;
                 bullet.transform.position = transform.position;
                 bullet.shooter = gameObject;
                 if(transform.position.x - player.transform.position.x > 0){
@@ -56,5 +55,10 @@ public class Enemy : MonoBehaviour
     {
         infected = true;
         player.speed = 5;
+    }
+
+    public bool isInfected()
+    {
+        return infected;
     }
 }

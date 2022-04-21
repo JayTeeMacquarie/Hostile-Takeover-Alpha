@@ -6,7 +6,6 @@ public class Bullet : MonoBehaviour
 {
     public float speed;
     public bool friendly;
-    public bool eFriendly;
     public float lifespan;
     public int damage;
     private float age;
@@ -19,8 +18,6 @@ public class Bullet : MonoBehaviour
         player = FindObjectOfType<Player>();
         movement = new Vector3(speed, 0, 0);
         age = 0;
-        eFriendly = false;
-        friendly = false;
     }
 
     void Update()
@@ -35,12 +32,13 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         GameObject other = collider.gameObject;
-        if(other.CompareTag("Enemy") && other != shooter && !eFriendly){
-            Debug.Log("lol");
+        if(other.CompareTag("Enemy") && other != shooter){
             Enemy enemy = other.GetComponent<Enemy>();
-            enemy.health = enemy.health - damage;
-            Debug.Log("attacked, health is:" + enemy.health);
-            Destroy(gameObject);
+            if(!enemy.isInfected()){
+                enemy.health = enemy.health - damage;
+                Debug.Log("attacked, health is:" + enemy.health);
+                Destroy(gameObject);
+            }
         }
 
         if(other.CompareTag("Player") && !friendly){
@@ -48,10 +46,12 @@ public class Bullet : MonoBehaviour
                 Enemy enemy = player.getHost().GetComponent<Enemy>();
                 enemy.health -= damage;
                 Debug.Log("attacked, health is:" + enemy.health);
+                Destroy(gameObject);
             }
             else{
                 player.health -= damage;
                 Debug.Log("Ouch, health: " + player.health);
+                Destroy(gameObject);
             }
         }
     }
