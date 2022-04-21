@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public int maxHealth;
     private bool jumping, faceLeft;
     private float attacked;
-    private GameObject host;
+    private Enemy host;
     private SpriteRenderer playerAppearence;
     private Rigidbody2D player;
     public Bullet prefab;
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
                 bullet.name = "Bullet";
                 bullet.friendly = true;
                 bullet.transform.position = host.transform.position;
-                bullet.shooter = host;
+                bullet.shooter = host.gameObject;
                 if(faceLeft){
                     bullet.speed = bullet.speed*-1;
                 }
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
                 transform.position = enemy.transform.position;
                 other.transform.parent = gameObject.transform;
                 Debug.Log("infected >:)");
-                host = other;
+                host = enemy;
                 playerAppearence.enabled = false;
                 enemy.infect();
             }
@@ -109,14 +109,14 @@ public class Player : MonoBehaviour
         if(host != null){
             Debug.Log("evicted :(");
             playerAppearence.enabled = true;
-            Destroy(host);
+            host.health = 0;
         }
     }
 
     //In future set up so that infectable is an interface/abstract class
     //so this method returns the something of that type and can access
     //stuff like health
-    public GameObject getHost()
+    public Enemy getHost()
     {
         return host;
     }

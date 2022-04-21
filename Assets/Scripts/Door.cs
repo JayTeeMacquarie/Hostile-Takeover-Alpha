@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     //each door has their own scientist that opens that door
+    //CURRENTLY WONT WORK WITH RESPAWNED SCIENTISTS
     public GameObject scientist;
     private bool unlocked;
     public float doorSpeed, maxHeight;

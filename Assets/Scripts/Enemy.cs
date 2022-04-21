@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public float fireRate;
     private Player player;
     public Bullet prefab;
+    public Spawner spawn;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour
                 player.killHost();
                 player.speed = 3;
             }
+            spawn.Respawn();
             Destroy(gameObject);
         }
         if(infected && deathTimer < Time.time){
