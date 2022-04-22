@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
         GameObject other = collider.gameObject;
         if(other.CompareTag("Enemy") && other != shooter){
             Enemy enemy = other.GetComponent<Enemy>();
-            if(!enemy.isInfected()){
+            if(shooter == player.gameObject && !enemy.isInfected()){
                 enemy.health = enemy.health - damage;
                 Debug.Log("attacked, health is:" + enemy.health);
                 Destroy(gameObject);

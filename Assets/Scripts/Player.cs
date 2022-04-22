@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
                 bullet.name = "Bullet";
                 bullet.friendly = true;
                 bullet.transform.position = host.transform.position;
-                bullet.shooter = host.gameObject;
+                bullet.shooter = gameObject;
                 if(faceLeft){
                     bullet.speed = bullet.speed*-1;
                 }
