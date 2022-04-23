@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     private float coolTimer;
     private bool waiting;
 
+    public int speed;
     public int health;
     public bool canShoot;
     public float fireRate;
@@ -21,6 +22,7 @@ public class Spawner : MonoBehaviour
 
         Enemy enemy = Instantiate(prefab);
         enemy.health = health;
+        enemy.speed = speed;
         enemy.canShoot = canShoot;
         enemy.fireRate = fireRate;
         enemy.prefab = bullet;

@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
         }
 
         if(host != null){
+            host.transform.position = transform.position;
             if(fireTimer < Time.time && Input.GetAxis("Fire3") > 0){
                 fireTimer = Time.time + fireRate;
                 Bullet bullet = Instantiate(prefab);

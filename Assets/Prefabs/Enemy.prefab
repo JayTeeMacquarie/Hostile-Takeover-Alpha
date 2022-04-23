@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2278078668655656581}
   - component: {fileID: 2278078668655656583}
   - component: {fileID: 2278078668655656600}
+  - component: {fileID: -3719425323215714024}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -115,6 +116,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  speed: 0
   canShoot: 1
   fireRate: 2
   prefab: {fileID: 8873991306737095684, guid: 0e5f1bd70d6874d9aa3f04db0c0c10bb, type: 3}
+  spawn: {fileID: 0}
+--- !u!50 &-3719425323215714024
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7548838186213464607}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
