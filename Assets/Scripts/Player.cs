@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
 
         if(host != null){
             host.transform.position = transform.position;
-            if(fireTimer < Time.time && Input.GetAxis("Fire3") > 0){
+            if(fireTimer < Time.time && Input.GetAxis("Fire3") > 0 && host.canShoot){
                 fireTimer = Time.time + fireRate;
                 Bullet bullet = Instantiate(prefab);
                 bullet.name = "Bullet";
@@ -93,7 +93,8 @@ public class Player : MonoBehaviour
                 playerAppearence.enabled = false;
                 enemy.infect();
             }
-            if(Input.GetAxis("Fire3") > 0 && attacked < Time.time){
+            if(Input.GetAxis("Fire3") > 0 && attacked < Time.time && host == null){
+                //can only melee when not in a host (could change to scientist can melee too)
                 enemy.health = enemy.health - attack;
                 Debug.Log("attacked, health is:" + enemy.health);
                 attacked = Time.time + attackSpeed;

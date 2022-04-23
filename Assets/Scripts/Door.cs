@@ -5,8 +5,8 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     //each door has their own scientist that opens that door
-    //CURRENTLY WONT WORK WITH RESPAWNED SCIENTISTS
-    public GameObject scientist;
+    //made so that scientist must be infected to open
+    public Enemy scientist;
     private bool unlocked;
     public float doorSpeed, maxHeight;
     private Vector3 startPos;
@@ -27,7 +27,7 @@ public class Door : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         GameObject other = collider.gameObject;
-        if(other == scientist){
+        if(other == scientist.gameObject && scientist.isInfected() == true){
             unlocked = true;
         }
     }

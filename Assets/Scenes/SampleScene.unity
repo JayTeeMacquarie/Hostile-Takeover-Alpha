@@ -2047,6 +2047,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -4777445521627186928, guid: 5773e70628dd44d5dbd960e7cf160d03, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 540218877}
+    - target: {fileID: -4777445521627186928, guid: 5773e70628dd44d5dbd960e7cf160d03, type: 3}
       propertyPath: speed
       value: 3
       objectReference: {fileID: 0}
@@ -2317,8 +2321,8 @@ MonoBehaviour:
   jump: 3
   hostJump: 5
   attack: 10
-  health: 100
-  maxHealth: 100
+  health: 50
+  maxHealth: 50
   prefab: {fileID: 8873991306737095684, guid: 0e5f1bd70d6874d9aa3f04db0c0c10bb, type: 3}
 --- !u!212 &2077300896
 SpriteRenderer:
@@ -2380,7 +2384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077300894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.32, y: -1.11, z: 0}
+  m_LocalPosition: {x: -9.32, y: -1.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

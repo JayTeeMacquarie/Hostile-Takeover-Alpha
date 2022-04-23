@@ -43,8 +43,8 @@ public class Enemy : MonoBehaviour
         }
         float yDistance = transform.position.y - player.transform.position.y;
         yDistance = (yDistance*yDistance)/yDistance;
-        if(Vector3.Distance(transform.position, player.transform.position) < 7 && yDistance < 0.25){
-            //if enemy is clos to the player
+        if(Vector3.Distance(transform.position, player.transform.position) < 7 && yDistance < 0.25 && yDistance > -0.25){
+            //if enemy is close to the player
 
             if(transform.position.x - player.transform.position.x > 0){
                 //if on players left/right
@@ -74,9 +74,12 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
-        else if(!infected && Vector3.Distance(transform.position, player.transform.position) > 5){
+        else if(Vector3.Distance(transform.position, player.transform.position) > 5 || yDistance < 0.25 || yDistance > -0.25){
+            //This else if allows for it to shoot while running
             //idle
-            transform.Translate(isRight*speed*Time.deltaTime, 0, 0);
+            if(!infected){
+                transform.Translate(isRight*speed*Time.deltaTime, 0, 0);
+            }
         }
     }
 

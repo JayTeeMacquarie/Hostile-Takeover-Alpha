@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
     public float cooldown;
     private float coolTimer;
     private bool waiting;
+    public Door door;
 
     public int speed;
     public int health;
@@ -29,6 +30,9 @@ public class Spawner : MonoBehaviour
         enemy.transform.parent = gameObject.transform;
         enemy.transform.position = gameObject.transform.position;
         enemy.spawn = this;
+        if(door != null){
+            door.scientist = enemy;
+        }
     }
 
     void Update()
