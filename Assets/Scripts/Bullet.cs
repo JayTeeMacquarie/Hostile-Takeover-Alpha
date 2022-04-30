@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         age = age + Time.deltaTime;
-        transform.Translate(movement);
+        transform.Translate(movement* Time.deltaTime);
         if(age > lifespan){
             Destroy(gameObject);
         }
