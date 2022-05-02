@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     private float deathTimer, deathRate, fireTimer;
     public float fireRate;
     private Player player;
+    private SpriteRenderer sprite;
     public Bullet prefab;
     public Spawner spawn;
     private int isRight;
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour
     {
         isRight = 1;
         player = FindObjectOfType<Player>();
+        sprite = GetComponent<SpriteRenderer>();
         deathTimer = Time.time;
         deathRate = 0.2f;
         fireTimer = Time.time;
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
         }
         float yDistance = transform.position.y - player.transform.position.y;
         yDistance = (yDistance*yDistance)/yDistance;
-        if(Vector3.Distance(transform.position, player.transform.position) < 7 && yDistance < 0.25 && yDistance > -0.25){
+        if(Vector3.Distance(transform.position, player.transform.position) < 7 && yDistance < 0.6 && yDistance > -0.6){
             //if enemy is close to the player
 
             if(transform.position.x - player.transform.position.x > 0){
@@ -74,7 +76,7 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
-        else if(Vector3.Distance(transform.position, player.transform.position) > 5 || yDistance < 0.25 || yDistance > -0.25){
+        else if(Vector3.Distance(transform.position, player.transform.position) > 5 || yDistance < 0.6 || yDistance > -0.6){
             //This else if allows for it to shoot while running
             //idle
             if(!infected){
@@ -99,6 +101,12 @@ public class Enemy : MonoBehaviour
         GameObject other = collider.gameObject;
         if(other.CompareTag("Track")){
             isRight *= -1;
+            if(sprite.flipX = true){
+                sprite.flipX = false;
+            }
+            else{
+                sprite.flipX = true;
+            }
         }
     }
 }
