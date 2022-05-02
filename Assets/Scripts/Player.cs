@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         }
 
         if(Input.GetKey(KeyCode.Space) && !jumping){
-            Debug.Log("jump");
+            //Debug.Log("jump");
             if(host != null){
                 player.AddForce(new Vector2(0, hostJump), ForceMode2D.Impulse);
             }
