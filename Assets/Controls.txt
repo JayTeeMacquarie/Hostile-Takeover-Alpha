@@ -1,0 +1,3 @@
+Right Shift = Attack
+Forward Slash / = Infect (when <=60hp)
+Left Alt (Windows) or Option (Mac) = Leave Host
