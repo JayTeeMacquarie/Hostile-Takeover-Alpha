@@ -40,12 +40,18 @@ public class Player : MonoBehaviour
             faceLeft = true;
         }
 
+        if(host != null && faceLeft){
+            host.turn(-1);
+        }
+        else if(host != null && !faceLeft){
+            host.turn(1);
+        }
+
         if(host != null && Input.GetAxis("Fire2") > 0){
             killHost();
         }
 
         if(Input.GetKey(KeyCode.Space) && !jumping){
-            //Debug.Log("jump");
             if(host != null){
                 player.AddForce(new Vector2(0, hostJump), ForceMode2D.Impulse);
             }
@@ -56,7 +62,7 @@ public class Player : MonoBehaviour
         }
 
         if(host != null){
-            host.transform.position = transform.position;
+            host.transform.position = transform.position + new Vector3(0, 0.6f, 0);
             if(fireTimer < Time.time && Input.GetAxis("Fire3") > 0 && host.canShoot){
                 fireTimer = Time.time + fireRate;
                 Bullet bullet = Instantiate(prefab);
@@ -95,7 +101,7 @@ public class Player : MonoBehaviour
             }
             if(Input.GetAxis("Fire3") > 0 && attacked < Time.time && host == null){
                 //can only melee when not in a host (could change to scientist can melee too)
-                enemy.health = enemy.health - attack;
+                enemy.damage(attack);
                 Debug.Log("attacked, health is:" + enemy.health);
                 attacked = Time.time + attackSpeed;
             }

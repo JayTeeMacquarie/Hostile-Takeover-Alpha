@@ -3198,7 +3198,7 @@ MonoBehaviour:
   speed: 3
   attackSpeed: 1
   fireRate: 0.5
-  jump: 3
+  jump: 3.5
   hostJump: 5
   attack: 10
   health: 50

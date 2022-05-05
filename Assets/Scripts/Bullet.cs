@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
         if(other.CompareTag("Enemy") && other != shooter){
             Enemy enemy = other.GetComponent<Enemy>();
             if(shooter == player.gameObject && !enemy.isInfected()){
-                enemy.health = enemy.health - damage;
+                enemy.damage(damage);
                 Debug.Log("attacked, health is:" + enemy.health);
                 Destroy(gameObject);
             }
@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
         if(other.CompareTag("Player") && !friendly){
             if(player.getHost() != null){
                 Enemy enemy = player.getHost().GetComponent<Enemy>();
-                enemy.health -= damage;
+                enemy.damage(damage);
                 Debug.Log("attacked, health is:" + enemy.health);
                 Destroy(gameObject);
             }
