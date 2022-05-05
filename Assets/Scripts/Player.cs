@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
 
     public HealthBar healthBar;
 
+    public HostHealthBar hostHealthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,12 +30,18 @@ public class Player : MonoBehaviour
         fireTimer = Time.time;
         faceLeft = false;
         healthBar.SetMaxHealth(maxHealth);
+        hostHealthBar.SetMaxHealth(100);
     }
 
     // Update is called once per frame
     void Update()
     {
         healthBar.SetHealth(health);
+
+        while(host != null)
+        {
+            hostHealthBar.SetHealth(host.health);
+        }
         
         horizontal = Input.GetAxis(InputAxis.Horizontal) * speed * Time.deltaTime;
         transform.Translate(new Vector3(horizontal, 0, 0));
@@ -123,6 +131,7 @@ public class Player : MonoBehaviour
             Debug.Log("evicted :(");
             playerAppearence.enabled = true;
             host.health = 0;
+            hostHealthBar.SetHealth(host.health);
         }
     }
 
