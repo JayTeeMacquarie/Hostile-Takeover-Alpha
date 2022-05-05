@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public float speed, attackSpeed, fireRate, jump, hostJump;
     public int attack, health;
     public int maxHealth;
+    public int playerLives = 3;
+    public Transform respawnPoint;
     private bool jumping, faceLeft;
     private float attacked;
     private Enemy host;
@@ -30,7 +32,7 @@ public class Player : MonoBehaviour
         fireTimer = Time.time;
         faceLeft = false;
         healthBar.SetMaxHealth(maxHealth);
-        hostHealthBar.SetMaxHealth(100);
+        //hostHealthBar.SetMaxHealth(100);
     }
 
     // Update is called once per frame
@@ -38,11 +40,6 @@ public class Player : MonoBehaviour
     {
         healthBar.SetHealth(health);
 
-        while(host != null)
-        {
-            hostHealthBar.SetHealth(host.health);
-        }
-        
         horizontal = Input.GetAxis(InputAxis.Horizontal) * speed * Time.deltaTime;
         transform.Translate(new Vector3(horizontal, 0, 0));
 
@@ -83,21 +80,34 @@ public class Player : MonoBehaviour
                 bullet.friendly = true;
                 bullet.transform.position = host.transform.position;
                 bullet.shooter = gameObject;
+                hostHealthBar.SetHealth(host.health);
                 if(faceLeft){
                     bullet.speed = bullet.speed*-1;
                 }
             }
         }
 
-        if(health <= 0){
+        if(health <= 0)
+        {
             playerAppearence.enabled = false;
             Debug.Log("u died");
+            youDied();
         }
-
         if(health > maxHealth){
             health = maxHealth;
         }
     }
+
+    public void youDied()
+    {
+            if(playerLives != 0){
+                transform.position = respawnPoint.transform.position;
+                health = maxHealth;
+                playerAppearence.enabled = true;
+                playerLives -= 1;
+                LiveCounter.livesCount -= 1;
+            }
+        }
 
     void OnTriggerStay2D(Collider2D collider)
     {
