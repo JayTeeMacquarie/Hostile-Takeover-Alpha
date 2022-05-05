@@ -6,7 +6,8 @@ public class Player : MonoBehaviour
 {
     private float horizontal, vertical, fireTimer;
     public float speed, attackSpeed, fireRate, jump, hostJump;
-    public int attack, health;
+    public int attack;
+    public int health;
     public int maxHealth;
     public int playerLives = 3;
     public Transform respawnPoint;
@@ -21,7 +22,6 @@ public class Player : MonoBehaviour
 
     public HostHealthBar hostHealthBar;
 
-    // Start is called before the first frame update
     void Start()
     {
         playerAppearence = GetComponent<SpriteRenderer>();
@@ -32,10 +32,10 @@ public class Player : MonoBehaviour
         fireTimer = Time.time;
         faceLeft = false;
         healthBar.SetMaxHealth(maxHealth);
-        //hostHealthBar.SetMaxHealth(100);
+        health = 50;
+        Time.timeScale = 1f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         healthBar.SetHealth(health);

@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
 
     public Text healthtext;
 
-    private PlayerHealth playerhp;
+    private Player playerhp;
     private float startTime;
     public float totalTime;
     //private bool finished = false;
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
-        playerhp = FindObjectOfType<PlayerHealth>();
+        playerhp = FindObjectOfType<Player>();
         GameManagerScript = FindObjectOfType<GameManager>();
     }
 

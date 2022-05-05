@@ -8,23 +8,25 @@ using UnityEngine.Analytics;
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverPanel;
-    public GameObject player;
-    private PlayerHealth playerhp;
+    public int playerhp;
+    public int lives;
     private UIManager UIManagerScript;
     void Start()
     {
         gameOverPanel.SetActive(false);
-        playerhp = FindObjectOfType<PlayerHealth>();
-        UIManagerScript = FindObjectOfType<UIManager>();
+       // UIManagerScript = FindObjectOfType<UIManager>();
     }
 
     void Update()
     {
-        // if(playerhp.hp <=0)
-        // {
-        //         gameOverPanel.SetActive(true);
-        //         Time.timeScale = 0;
-        // }
+        playerhp = GameObject.Find("Player").GetComponent<Player>().health;
+        lives = LiveCounter.livesCount;
+        if(playerhp <=0 && lives <=0)
+        {
+                Debug.Log("Game Over MATE");
+                gameOverPanel.SetActive(true);
+                Time.timeScale = 0;
+        }
     }
     public void Restart() // Used to restart when you press play again on the buttons
     {
