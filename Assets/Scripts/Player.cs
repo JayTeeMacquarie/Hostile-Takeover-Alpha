@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D player;
     public Bullet prefab;
 
+    public HealthBar healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,11 +27,14 @@ public class Player : MonoBehaviour
         jumping = false;
         fireTimer = Time.time;
         faceLeft = false;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
+        healthBar.SetHealth(health);
+        
         horizontal = Input.GetAxis(InputAxis.Horizontal) * speed * Time.deltaTime;
         transform.Translate(new Vector3(horizontal, 0, 0));
 
