@@ -14,28 +14,46 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer sprite;
     public Bullet prefab;
     public Spawner spawn;
+    public HealthBar healthPrefab;
+    private HealthBar healthBar;
+    private RectTransform healthTran;
+    private Camera cam;
 
     void Start()
     {
         isRight = 1;
         player = FindObjectOfType<Player>();
+        cam = FindObjectOfType<Camera>();
         sprite = GetComponent<SpriteRenderer>();
+        healthBar = Instantiate(healthPrefab);
+        healthBar.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
+        healthTran = healthBar.GetComponent<RectTransform>();
         deathTimer = Time.time;
         deathRate = 0.2f;
         fireTimer = Time.time;
         damageTimer = Time.time;
         damageLength = 0.2f;
+        healthBar.SetMaxHealth(health);
+        Debug.Log(healthBar);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(healthBar != null){
+            healthBar.SetHealth(health);
+            Vector2 newPos = RectTransformUtility.WorldToScreenPoint(cam, transform.position);
+            newPos.y += 250;
+            healthTran.position = newPos;
+        }
+
         if(health <= 0){
             if(infected){
                 player.killHost();
                 player.speed = 3;
             }
             spawn.Respawn();
+            Destroy(healthBar);
             Destroy(gameObject);
         }
         if(infected && deathTimer < Time.time){
@@ -100,6 +118,7 @@ public class Enemy : MonoBehaviour
     public void infect()
     {
         infected = true;
+        Destroy(healthBar.gameObject);
         player.speed = 5;
     }
 

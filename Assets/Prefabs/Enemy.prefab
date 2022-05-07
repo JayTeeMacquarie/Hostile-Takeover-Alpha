@@ -105,6 +105,7 @@ MonoBehaviour:
   fireRate: 2
   prefab: {fileID: 8873991306737095684, guid: 0e5f1bd70d6874d9aa3f04db0c0c10bb, type: 3}
   spawn: {fileID: 0}
+  healthPrefab: {fileID: 8262938888011681399, guid: 30294f2a5051d4fe98c6a3dfdd1fa04c, type: 3}
 --- !u!50 &-3719425323215714024
 Rigidbody2D:
   serializedVersion: 4

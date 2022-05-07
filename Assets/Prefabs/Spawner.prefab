@@ -46,7 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 2278078668655656600, guid: 13735af2339774a34a125505cd803341, type: 3}
   cooldown: 5
+  door: {fileID: 0}
+  speed: 0
   health: 100
   canShoot: 1
   fireRate: 2
   bullet: {fileID: 8873991306737095684, guid: 0e5f1bd70d6874d9aa3f04db0c0c10bb, type: 3}
+  healthPrefab: {fileID: 8262938888011681399, guid: 30294f2a5051d4fe98c6a3dfdd1fa04c, type: 3}

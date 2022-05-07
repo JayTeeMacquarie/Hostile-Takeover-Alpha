@@ -80,11 +80,11 @@ public class Player : MonoBehaviour
                 bullet.friendly = true;
                 bullet.transform.position = host.transform.position;
                 bullet.shooter = gameObject;
-                hostHealthBar.SetHealth(host.health);
                 if(faceLeft){
                     bullet.speed = bullet.speed*-1;
                 }
             }
+            hostHealthBar.SetHealth(host.health);
         }
 
         if(health <= 0)

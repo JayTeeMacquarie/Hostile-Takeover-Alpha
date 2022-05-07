@@ -15,6 +15,7 @@ public class Spawner : MonoBehaviour
     public bool canShoot;
     public float fireRate;
     public Bullet bullet;
+    public HealthBar healthPrefab;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class Spawner : MonoBehaviour
         waiting = false;
 
         Enemy enemy = Instantiate(prefab);
+        enemy.healthPrefab = healthPrefab;
         enemy.health = health;
         enemy.speed = speed;
         enemy.canShoot = canShoot;
