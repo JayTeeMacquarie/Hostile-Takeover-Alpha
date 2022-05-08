@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        healthBar.SetHealth(health);
+        healthBar.SetHealth(health, false);
 
         horizontal = Input.GetAxis(InputAxis.Horizontal) * speed * Time.deltaTime;
         transform.Translate(new Vector3(horizontal, 0, 0));

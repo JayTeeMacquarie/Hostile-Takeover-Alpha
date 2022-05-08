@@ -34,14 +34,13 @@ public class Enemy : MonoBehaviour
         damageTimer = Time.time;
         damageLength = 0.2f;
         healthBar.SetMaxHealth(health);
-        Debug.Log(healthBar);
     }
 
     // Update is called once per frame
     void Update()
     {
         if(healthBar != null){
-            healthBar.SetHealth(health);
+            healthBar.SetHealth(health, true);
             Vector2 newPos = RectTransformUtility.WorldToScreenPoint(cam, transform.position);
             newPos.y += 250;
             healthTran.position = newPos;
