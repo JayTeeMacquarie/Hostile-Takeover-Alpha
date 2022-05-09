@@ -42,8 +42,12 @@ public class Enemy : MonoBehaviour
         if(healthBar != null){
             healthBar.SetHealth(health, true);
             Vector2 newPos = RectTransformUtility.WorldToScreenPoint(cam, transform.position);
-            newPos.y += 100;
+            //newPos.y += 100;
+            newPos.y += Screen.height/6;
             healthTran.position = newPos;
+        }
+        if(player.playerdied == true){
+            healthBar.transform.SetAsFirstSibling();
         }
 
         if(health <= 0){

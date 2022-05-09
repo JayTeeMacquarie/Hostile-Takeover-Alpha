@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer playerAppearence;
     private Rigidbody2D player;
     public Bullet prefab;
-
+    public bool playerdied = false;
     public HealthBar healthBar;
 
     public HostHealthBar hostHealthBar;
@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
         if(health <= 0)
         {
             playerAppearence.enabled = false;
+            playerdied = true;
             Debug.Log("u died");
             youDied();
         }
