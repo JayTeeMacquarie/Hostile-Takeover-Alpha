@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
         if(healthBar != null){
             healthBar.SetHealth(health, true);
             Vector2 newPos = RectTransformUtility.WorldToScreenPoint(cam, transform.position);
-            newPos.y += 250;
+            newPos.y += 100;
             healthTran.position = newPos;
         }
 
