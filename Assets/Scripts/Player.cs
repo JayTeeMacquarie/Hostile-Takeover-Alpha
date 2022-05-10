@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
             host.turn(1);
         }
 
-        if(host != null && Input.GetAxis("Fire2") > 0){
+        if(host != null && Input.GetAxis("Eject") > 0){
             killHost();
         }
 
@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
 
         if(host != null){
             host.transform.position = transform.position + new Vector3(0, 0.6f, 0);
-            if(fireTimer < Time.time && Input.GetAxis("Fire3") > 0 && host.canShoot){
+            if(fireTimer < Time.time && Input.GetAxis("Attack") > 0 && host.canShoot){
                 fireTimer = Time.time + fireRate;
                 Bullet bullet = Instantiate(prefab);
                 bullet.name = "Bullet";
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
         GameObject other = collider.gameObject;
         if(other.CompareTag("Enemy")){
             Enemy enemy = other.GetComponent<Enemy>();
-            if(Input.GetAxis("Fire1") > 0 && host == null && enemy.health <= 60){
+            if(Input.GetAxis("Infect") > 0 && host == null && enemy.health <= 60){
                 transform.position = enemy.transform.position;
                 other.transform.parent = gameObject.transform;
                 Debug.Log("infected >:)");
@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
                 playerAppearence.enabled = false;
                 enemy.infect();
             }
-            if(Input.GetAxis("Fire3") > 0 && attacked < Time.time && host == null){
+            if(Input.GetAxis("Attack") > 0 && attacked < Time.time && host == null){
                 //can only melee when not in a host (could change to scientist can melee too)
                 enemy.damage(attack);
                 Debug.Log("attacked, health is:" + enemy.health);
