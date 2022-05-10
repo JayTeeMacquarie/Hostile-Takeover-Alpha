@@ -103,6 +103,7 @@ public class Player : MonoBehaviour
     {
             if(playerLives != 0){
                 transform.position = respawnPoint.transform.position;
+                playerdied = false;
                 health = maxHealth;
                 playerAppearence.enabled = true;
                 playerLives -= 1;
